@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,referrerpolicy="no-referrer-when-downgrade" frameborder="0" allow="autoplay; encrypted-media" initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Iceland&family=Saira&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Saira&display=swap');
+    body {
+      text-align: center;
+      background-color: black;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    .hidden {
+      display: none;
+    }
+    .rounded {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+    #marquee {
+      position: fixed;
+      top: 75px;
+      left: -225px;
+      width: 500px;
+      padding: 10px;
+      font-size: 24px;
+      text-align: center;
+      color: #88aace;
+      text-shadow: 0 0 3px #fff;
+      font-family: 'Iceland', verdana, arial, sans-serif;
+      transform: rotate(-45deg);
+      transform-origin: 50% 0px;
+      -o-transform: rotate(-45deg);
+      -o-transform-origin: 50% 0px;
+      -moz-transform: rotate(-45deg);
+      -moz-transform-origin: 50% 0px;
+      -webkit-transform: rotate(-45deg);
+      -webkit-transform-origin: 50% 0px;
+      background-color: Transparent;
+      border: 1px solid rgb(170, 170, 170);
+      z-index: 9999;
+      opacity: 0.5;
+    }
+    marquee {
+      display: inline-block;
+    }
+    #msg {
+      font-size: 18px;
+      font-family: 'Changa', sans-serif;
+    }
+    snap {
+      color: red;
+      text-shadow: 0 0 10px cyan;
+    }
+    #music {
+      display: none;
+    }
+    #welcomMsg {
+      font-family: 'Saira', sans-serif;
+      font-size: 24px;
+      text-shadow: 0 0 3px red;
+    }
+    #author {
+      color: cyan;
+      font-family: 'Saira', sans-serif;
+      font-size: 15px;
+      text-shadow: 0 0 5px blue;
+    }
+  </style>
+  <title>{title}</title>
+</head>
+<body>
+  <div id="welcomMsg"></div>
+  <div id="content" class="hidden">
+    <marquee id="marquee">{marquee}</marquee>
+    <img src="{linkImg}" alt="Pwnme" class="rounded">
+    <p id="msg">{msg}</snap></p>
+    <p id="author">By: {author}</p>
+    <iframe id="music" width="300" height="200" src="https://www.youtube.com/embed/{idYt}?autoplay=1" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      typeEffect("welcomMsg", "{welcomMsg}", 50, function() {
+        setTimeout(function() {
+          document.getElementById("welcomMsg").style.display = "none";
+          document.getElementById("content").classList.remove("hidden");
+        }, 2000);
+      });
+    });
+
+    function typeEffect(elementId, text, speed, callback) {
+      const element = document.getElementById(elementId);
+      let i = 0;
+      
+      function type() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        } else {
+          callback();
+        }
+      }
+      type();
+    }
+  </script>
+</body>
+</html>
