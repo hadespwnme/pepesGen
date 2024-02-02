@@ -14,5 +14,5 @@ A tool for generate deface script using python3
    ```
 3. Run app
    ```sh
-   python pepesGen.py
+   python3 pepesGen.py
    ```
