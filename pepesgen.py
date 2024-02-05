@@ -27,6 +27,28 @@ class pepesGen:
         with open(save, 'w') as file:
             file.write(content)
 
+    def script2(self, title, name, grting, fb, email, github, ytUrl, ig):
+        with open(self.folderName, 'r') as file:
+            content = file.read()
+
+        content = content.replace('HadesPwnme', f'{title}')
+        content = content.replace('HADES', f'{name}')
+        content = content.replace('["Surabaya Hacker Link", "XXXX", "Laztname", "Lawbyte", "YYYY", "Hades"]', f'{grting}')
+        content = content.replace('{fb}', f'{fb}')
+        content = content.replace('yingcrackerhades', f'{github}')
+        content = content.replace('hadespwn0@gmail.com', f'{email}')
+        content = content.replace('yinghades_', f'{ig}')
+
+        id = youtubeId(ytUrl)
+        if id:
+            content = content.replace('{idYt}', f'{id}')
+        else:
+            print(f'No match found for YouTube URL: {ytUrl}')
+
+        save = input("Output: ")
+        with open(save, 'w') as file:
+            file.write(content)
+
 def youtubeId(url):
     pattern = r'^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*'
     result = re.match(pattern, url)
@@ -76,6 +98,19 @@ if __name__ == "__main__":
         pepesGen.script1(title, marq, message, auth, image, ytUrl, welMsg)
         print(f"Success make a Pepes file.")
     elif pil == '2':
-        print("Soon")
+        script = 'script2.html'
+        pepesGen = pepesGen(folderName, script)
+        title = input("Title: ")
+        name = input("Name: ")
+        grtingInput = input("Enter name(ex: hades, pwnme, lawbyte): ")
+        grting = grtingInput.split(',')
+        fb = input("Facebook: ")
+        email = input("Email: ")
+        ytUrl = input("YouTube URL: ")
+        github = input("Github: ")
+        ig = input("Instagram: ")
+
+        pepesGen.script2(title, name, grting, fb, email, github, ytUrl, ig)
+        print(f"Success make a Pepes file.")
     else:
         print("Invalid choosing.")
