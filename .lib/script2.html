@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,referrerpolicy="no-referrer-when-downgrade" frameborder="0" allow="autoplay; encrypted-media" initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <title>HadesPwnme</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      background-color: #282c34;
+    }
+
+    @import url('https://fonts.googleapis.com/css2? family= Exo+2 & display=swap');
+    @import url('https://fonts.googleapis.com/css2? family= KoHo & display=swap');
+    
+    @keyframes draw {
+      0% {
+        stroke-dashoffset: 600;
+      }
+      100% {
+        stroke-dashoffset: -600;
+      }
+    }
+
+    svg {
+      width: 100%;
+      height: 200px;
+      text-align: center;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    text {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 150px;
+      fill: none;
+      stroke: rgb(247, 0, 0);
+      stroke-width: 2;
+      stroke-dasharray: 30;
+      stroke-dashoffset: 600;
+      animation: draw 15s linear infinite;
+      letter-spacing: 15px;
+    }
+
+    #music {
+      display: none;
+    }
+
+    #sakura {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    .text {
+      font-size: 24px;
+      font-family: 'KoHo', sans-serif;
+      font-weight: bold;
+      padding-top: 200px;
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 0 10px;
+    }
+
+    #animatedText {
+      color: rgb(255, 238, 0);
+    }
+
+    #pwnme {
+      color: rgb(162, 0, 255);
+    }
+    .middle {
+  position: absolute;
+  top: 80%;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+  z-index: 3;
+}
+
+.btn {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: #f1f1f1;
+  margin: 10px;
+  border-radius: 30%;
+  box-shadow: 0 5px 15px -5px #00000070;
+  color: #3498db;
+  overflow: hidden;
+  position: relative;
+}
+
+.btn i {
+  line-height: 50px;
+  font-size: 26px;
+  transition: 0.2s linear;
+}
+
+.btn:hover i {
+  transform: scale(1.3);
+  color: #f1f1f1;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: #3498db;
+  transform: rotate(45deg);
+  left: -110%;
+  top: 90%;
+}
+
+.btn:hover::before {
+  animation: aaa 0.7s 1;
+  top: -10%;
+  left: -10%;
+}
+
+@keyframes aaa {
+  0% {
+    left: -110%;
+    top: 90%;
+  }
+  50% {
+    left: 10%;
+    top: -30%;
+  }
+  100% {
+    top: -10%;
+    left: -10%;
+  }
+}
+  </style>
+</head>
+<body>
+  <svg>
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle">HADES</text>
+  </svg>
+  <iframe id="music" width="300" height="200" src="https://www.youtube.com/embed/{idYt}?autoplay=1" referrerpolicy="no-referrer-when-downgrade" frameborder="0" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe>
+  <canvas id="sakura"></canvas>
+  <div class="text" id="animatedText">THANKS TO: <span id="pwnme">PWNME</span></div>
+  <div class="middle">
+    <a class="btn" href="{fb}">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a class="btn" href="https://github.com/yingcrackerhades">
+      <i class="fab fa-github"></i>
+    </a>
+    <a class="btn" href="mailto:hadespwn0@gmail.com">
+      <i class="fa fa-envelope"></i>
+    </a>
+    <a class="btn" href="https://www.instagram.com/yinghades_">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+
+  <script>
+    window.requestAnimFrame = (function () {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback, element) {
+        window.setTimeout(callback, 10 / 10);
+      };
+    });
+
+    function random(n) {
+      return Math.floor(Math.random() * n) + 1;
+    }
+
+    function Canvas(elm) {
+      this.elm = elm;
+      this.canvasCtx = this.elm.getContext('2d');
+      this.width = this.elm.width;
+      this.height = this.elm.height;
+      this.children = [];
+
+      this.init();
+    }
+
+    Canvas.prototype = {
+      resize: function (boolean) {
+        this.width = this.elm.width = boolean ? this.elm.parentNode.clientWidth * 2 : window.innerWidth * 2;
+        this.height = this.elm.height = boolean ? this.elm.parentNode.clientHeight * 2 : window.innerHeight * 2;
+      },
+      clear: function () {
+        this.canvasCtx.clearRect(0, 0, this.width, this.height);
+      },
+      addChild: function (child) {
+        this.children.push(child);
+      },
+      removeChild: function (num) {
+        this.children.splice(num, 1);
+      },
+      rendering: function () {
+        this.clear();
+
+        var limit = this.children.length;
+        for (var i = limit - 1 ; i >= 0 ; i--) {
+          var child = this.children[i];
+          if (child.draw(this.canvasCtx)) {
+            this.removeChild(i);
+          }
+        }
+      },
+      createSakura: function (num, x1, y1, x2, y2) {
+        var colors = ["#f29fb5", "#f5cbd4", "#783791"];
+        for (var i = 0 ; i < num ; i++) {
+          var x_pos = Math.floor(Math.random() * (x2 - x1)) + x1;
+          var y_pos = Math.floor(Math.random() * (y2 - y1)) + y1;
+          this.addChild(new Sakura(
+            this,
+            x_pos,
+            y_pos,
+            Math.random() + 0.5,
+            { x: random(360), y: random(360), z: random(360) },
+            { x: random(10), y: random(10), z: random(10) },
+            random(5),
+            colors[random(3) - 1]
+          ));
+        }
+      },
+      animate: function () {
+        var _this = this;
+
+        if (Math.random() > 0.15 && this.children.length < 30) {
+          this.createSakura(20, 1, 1, this.width, 0);
+        }
+
+        this.rendering();
+
+        window.requestAnimationFrame(function () {
+          _this.animate();
+        });
+      },
+      init: function () {
+        this.resize(true);
+        this.animate();
+      }
+    };
+
+    function Sakura(parent, x, y, scale, direction, rotate, wind, color) {
+      this.parent = parent;
+      this.x_pos = x;
+      this.y_pos = y;
+      this.scale = scale;
+      this.direction = direction;
+      this.rotate = rotate;
+      this.wind = wind;
+      this.gr = 5;
+      this.phase = 0;
+      this.color = color;
+    }
+
+    Sakura.prototype = {
+      draw: function (ctx) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.translate(this.x_pos, this.y_pos);
+
+        ctx.rotate(this.direction.y / 100 * Math.PI);
+        ctx.scale(this.scale, this.scale);
+        ctx.fillStyle = this.color;
+
+        var x_rad = Math.cos(this.direction.x * Math.PI / 100);
+        var z_rad = Math.cos(this.direction.z * Math.PI / 100);
+        ctx.moveTo(-6 * z_rad, -10 * x_rad);
+        ctx.bezierCurveTo(-10 * z_rad, 0 * x_rad, -5 * z_rad, 10 * x_rad, 0 * z_rad, 10 * x_rad);
+        ctx.bezierCurveTo(0 * z_rad, 0 * x_rad, 0 * z_rad, 0 * x_rad, -1 * z_rad, -1 * x_rad);
+        ctx.fill();
+        ctx.restore();
+
+        return this.moveSakura();
+      },
+      moveSakura: function () {
+        var move_y;
+        if (this.phase === 0) {
+          var ground = 1 + (this.scale / 10);
+          if (this.y_pos > this.parent.height * ground) {
+            this.gr = 0;
+            this.wind = 0;
+            this.rotate.x = 0;
+            this.rotate.y = 0;
+            this.rotate.z = 0;
+            this.phase = 1;
+            this.parent.fallenSakura++;
+          }
+        } else if (this.phase === 2) {
+          if (this.gr > -3) this.gr += this.gr / 10;
+          move_y = (this.gr * this.scale);
+        }
+
+        this.y_pos = this.y_pos + (this.gr * this.scale) / 2;
+        this.x_pos = this.x_pos + this.wind / -2;
+        this.direction.x += this.rotate.x / 3;
+        this.direction.y += this.rotate.y / 3;
+        this.direction.z += this.rotate.z / 3;
+
+        if (this.x_pos > this.parent.width) return true;
+        return this.y_pos > this.parent.height ? true : false;
+      }
+    };
+
+    var canvas = document.getElementById("sakura");
+    var SakuraCanvas = new Canvas(canvas);
+
+    const wordsList = ["Surabaya Hacker Link", "XXXX", "Laztname", "Lawbyte", "YYYY", "Hades"];
+
+    function animateText() {
+      const pwnmeElement = document.getElementById("pwnme");
+      let index = 0;
+
+      setInterval(() => {
+        pwnmeElement.textContent = wordsList[index];
+        index = (index + 1) % wordsList.length;
+      }, 2000);
+    }
+
+    animateText();
+  </script>
+</body>
+</html>
